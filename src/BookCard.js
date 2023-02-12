@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 const BookCard = (props)=>
 {
-    const { book = 'empty' } = props || {};
+    const {book} = props;
    return (
     <div className="col-sm-2" >
                           

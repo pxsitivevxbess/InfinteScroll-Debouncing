@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef, useCallback } from "react";  
+import React, { useState,useEffect, useRef } from "react";  
 import axios from 'axios';  
 import { Card } from 'react-bootstrap';
 import BookCard from "./BookCard";
@@ -21,9 +21,7 @@ function BookSearch() {
             (entries) => {
                 const first = entries[0];
                 if (first.isIntersecting) {
-                    console.log("22");
                     setCurrIndex((prevInd)=>prevInd+resLen)
-                    console.log("23");
                 }
             })
     );
@@ -31,8 +29,6 @@ function BookSearch() {
    const callApi = ()=>{
     axios.get("https://www.googleapis.com/books/v1/volumes?q=" + book + "&key=" + apiKey +"&startIndex="+currIndex+ "&maxResults="+resLen)  
     .then(data => {  
-        console.log(result);
-        console.log(data.data.items);
         setResult((prevData)=>{
             return prevData.concat(data.data.items);
         });  
@@ -42,15 +38,12 @@ function BookSearch() {
     useEffect(() => {
       const currentElement = lastElement;
       const currentObserver = observer.current;
-       console.log("42");
        if (currentElement) {
-        console.log("45");
          currentObserver.observe(currentElement);
        }
 
         return () => {
         if (currentElement) {
-            console.log("50");
             currentObserver.unobserve(currentElement);
             
         }
@@ -83,7 +76,6 @@ function BookSearch() {
             <div className="container">  
                 <div className="row">  
                     {result.length > 0 && result.map((book,index) => { 
-                        console.log(result.size);
                        return(
                         index===result.length-1?(<div ref ={setLastElement}>
                          <BookCard book={book} />
